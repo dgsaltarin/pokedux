@@ -4,7 +4,7 @@ import Meta from 'antd/lib/card/Meta';
 import './PokemonList.css';
 import { StarOutlined } from '@ant-design/icons';
 
-const PokemonCard: FC = ({ name }) => {
+const PokemonCard: FC<String> = (name) => {
   return (
     <Card
       title={name}

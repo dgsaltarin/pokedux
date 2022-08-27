@@ -1,8 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import PokemonList from '@/types/PokemonList';
 
-export const getPokemons = () => {
-  return axios
-    .get('https://pokeapi.co/api/v2/pokemon?limit=150')
-    .then((response) => response.data.results)
-    .catch((error) => console.log(error));
+export const getPokemons: () => Promise<PokemonList> = async (): Promise<PokemonList> => {
+  try {
+    const response: AxiosResponse<PokemonList> = await axios.get<PokemonList>('https://pokeapi.co/api/v2/pokemon?limit=151');
+    if (response) {
+      return response.data;
+    }
+    return {} as PokemonList;
+  } catch (error: unknown) {
+    console.log(error);
+    return {} as PokemonList;
+  }
 };

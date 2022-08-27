@@ -1,9 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { type } from 'os';
-import { SET_POKEMONS } from '../../types/Pokemon';
+import PokemonList from '@/types/PokemonList';
+import PokemonSliceProps from '@/types/slices/PokemonSlice';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getPokemons } from '../../api';
 
-const initialState = {
-  pokemons: [],
+export const getPokemonList = createAsyncThunk('pokemon/getPokemonList', async () => {
+  let response: PokemonList;
+  try {
+    response = await getPokemons();
+    console.log(response);
+    return response;
+  } catch (error: unknown) {
+    console.log(error);
+    return {} as PokemonList;
+  }
+});
+
+const initialState: PokemonSliceProps = {
+  pokemons: {
+    results: [],
+  },
+  loading: false,
 };
 
 const PokemonSlice = createSlice({
@@ -11,9 +27,21 @@ const PokemonSlice = createSlice({
   initialState: initialState,
   reducers: {
     setPokemons(state, action) {
-      type: SET_POKEMONS;
       state.pokemons = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPokemonList.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPokemonList.fulfilled, (state, action) => {
+        state.pokemons = action.payload;
+        state.loading = false;
+      })
+      .addCase(getPokemonList.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 
