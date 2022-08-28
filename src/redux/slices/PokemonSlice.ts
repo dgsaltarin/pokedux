@@ -4,21 +4,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getPokemons } from '../../api';
 
 export const getPokemonList = createAsyncThunk('pokemon/getPokemonList', async () => {
-  let response: PokemonList;
   try {
-    response = await getPokemons();
-    console.log(response);
-    return response;
+    const response = await getPokemons();
+    return response?.data.results;
   } catch (error: unknown) {
     console.log(error);
-    return {} as PokemonList;
   }
 });
 
-const initialState: PokemonSliceProps = {
-  pokemons: {
-    results: [],
-  },
+const initialState = {
+  pokemonResult: {} as any,
   loading: false,
 };
 
@@ -27,7 +22,7 @@ const PokemonSlice = createSlice({
   initialState: initialState,
   reducers: {
     setPokemons(state, action) {
-      state.pokemons = action.payload;
+      state.pokemonResult = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -36,8 +31,9 @@ const PokemonSlice = createSlice({
         state.loading = true;
       })
       .addCase(getPokemonList.fulfilled, (state, action) => {
-        state.pokemons = action.payload;
+        state.pokemonResult = action.payload;
         state.loading = false;
+        console.log(state.pokemonResult);
       })
       .addCase(getPokemonList.rejected, (state) => {
         state.loading = false;

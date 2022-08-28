@@ -1,15 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import PokemonList from '@/types/PokemonList';
 
-export const getPokemons: () => Promise<PokemonList> = async (): Promise<PokemonList> => {
+export const getPokemons = async () => {
   try {
-    const response: AxiosResponse<PokemonList> = await axios.get<PokemonList>('https://pokeapi.co/api/v2/pokemon?limit=151');
-    if (response) {
-      return response.data;
-    }
-    return {} as PokemonList;
+    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151');
+    return response;
   } catch (error: unknown) {
     console.log(error);
-    return {} as PokemonList;
   }
 };

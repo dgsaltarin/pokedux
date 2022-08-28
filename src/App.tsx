@@ -1,5 +1,5 @@
 import { Col } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Logo from './assets/logo.svg';
@@ -10,9 +10,13 @@ import { AppDispatch } from './redux/Store';
 
 function App() {
   const dispath = useDispatch<AppDispatch>();
-  const { pokemons } = useSelector((state: any) => state.pokemon);
+  const [pokemons, setPokemons] = useState([]);
+  const { pokemonResult } = useSelector((state: any) => state.pokemon);
 
-  dispath(getPokemonList());
+  useEffect(() => {
+    dispath(getPokemonList());
+    //setPokemons(pokemonResult);
+  }, [dispath]);
 
   return (
     <div className="App">
@@ -22,7 +26,7 @@ function App() {
       <Col span={8} offset={8}>
         <Searcher />
       </Col>
-      <PokemonListComponent pokemons={pokemons.results} />
+      <PokemonListComponent pokemons={pokemons} />
     </div>
   );
 }
