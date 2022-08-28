@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import PokemonCard from './PokemonCard';
 
-const PokemonList: FC = ({ pokemons }) => {
+const PokemonList: FC<{ pokemons: any }> = ({ pokemons }) => {
   console.log(pokemons);
   return (
     <div className="PokemonList">

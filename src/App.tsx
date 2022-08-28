@@ -6,6 +6,8 @@ import { Col } from 'antd';
 import Logo from './assets/logo.svg';
 import PokemonList from './components/PokemonList';
 import { getPokemons } from './api';
+import { connect } from 'react-redux';
+import { setPokemons as setPokemonsActions } from './redux/actions';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -31,4 +33,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  pokemons: state.pokemons,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  setPokemons: (pokemons: any) => dispatch(setPokemonsActions(pokemons)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
