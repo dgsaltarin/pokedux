@@ -21,6 +21,13 @@ const PokemonSlice: any = createSlice({
     setPokemons(state: PokemonSliceProps, action: { payload: Pokemon[] }) {
       state.pokemons = action.payload;
     },
+    setFavorite(state: PokemonSliceProps, action: { payload: { id: number } }) {
+      const { id } = action.payload;
+      const pokemon = state.pokemons.find((pokemon) => pokemon.id === id);
+      if (pokemon) {
+        pokemon.is_favorite = !pokemon.is_favorite;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,6 +44,6 @@ const PokemonSlice: any = createSlice({
   },
 });
 
-export const { setPokemons } = PokemonSlice.actions;
+export const { setPokemons, setFavorite } = PokemonSlice.actions;
 
 export default PokemonSlice.reducer;

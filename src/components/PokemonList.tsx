@@ -7,7 +7,7 @@ const PokemonListComponent: FC<{ pokemons: Pokemon[] }> = ({ pokemons }) => {
   return (
     <div className="PokemonList">
       {pokemons.map((pokemon: Pokemon) => {
-        return <PokemonCard key={pokemon.name} name={pokemon.name} image={pokemon.sprites.front_default} types={pokemon.types} />;
+        return <PokemonCard key={pokemon.name} name={pokemon.name} image={pokemon.sprites.front_default} types={pokemon.types} id={pokemon.id} />;
       })}
     </div>
   );
