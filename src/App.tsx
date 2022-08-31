@@ -10,13 +10,11 @@ import { AppDispatch } from './redux/Store';
 
 function App() {
   const dispath = useDispatch<AppDispatch>();
-  const [pokemons, setPokemons] = useState([]);
-  const { pokemonResult } = useSelector((state: any) => state.pokemon);
+  const { pokemons } = useSelector((state: any) => state.pokemon);
 
   useEffect(() => {
     dispath(getPokemonList());
-    //setPokemons(pokemonResult);
-  }, [dispath]);
+  }, []);
 
   return (
     <div className="App">

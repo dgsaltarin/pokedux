@@ -1,5 +1,8 @@
 export const SET_POKEMONS = 'SET_POKEMONS';
 
-interface Pokemon {}
+export interface Pokemon {}
 
-export default Pokemon;
+export interface BasicInfo {
+  name: string;
+  url: string;
+}

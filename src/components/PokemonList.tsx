@@ -1,12 +1,12 @@
-import PokemonList from '@/types/PokemonList';
+import { BasicInfo } from '@/types/Pokemon';
 import { FC } from 'react';
 import PokemonCard from './PokemonCard';
 
-const PokemonListComponent: FC<{ pokemons: any }> = ({ pokemons }) => {
+const PokemonListComponent: FC<{ pokemons: BasicInfo[] }> = ({ pokemons }) => {
   console.log(pokemons);
   return (
     <div className="PokemonList">
-      {pokemons.map((pokemon: any) => {
+      {pokemons.map((pokemon: BasicInfo) => {
         return <PokemonCard name={pokemon.name} />;
       })}
     </div>
