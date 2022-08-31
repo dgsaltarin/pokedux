@@ -1,24 +1,24 @@
-import { BasicInfo } from '@/types/Pokemon';
+import { BasicInfo, Pokemon } from '@/types/Pokemon';
 import PokemonSliceProps from '@/types/slices/PokemonSlice';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getPokemons } from '../../api';
+import { getPokemonDetails, getPokemons } from '../../api';
 
 export const getPokemonList = createAsyncThunk('pokemon/getPokemonList', async () => {
   const response: BasicInfo[] = await getPokemons();
-  return response;
+  const pokemonWithDeatils = await Promise.all(response.map(getPokemonDetails));
+  return pokemonWithDeatils;
 });
 
 const initialState: PokemonSliceProps = {
   pokemons: [],
-  pokemonsWithDeails: [],
   loading: false,
 };
 
-const PokemonSlice = createSlice({
+const PokemonSlice: any = createSlice({
   name: 'pokemon',
   initialState: initialState,
   reducers: {
-    setPokemons(state: PokemonSliceProps, action: { payload: BasicInfo[] }) {
+    setPokemons(state: PokemonSliceProps, action: { payload: Pokemon[] }) {
       state.pokemons = action.payload;
     },
   },
@@ -27,7 +27,7 @@ const PokemonSlice = createSlice({
       .addCase(getPokemonList.pending, (state: PokemonSliceProps) => {
         state.loading = true;
       })
-      .addCase(getPokemonList.fulfilled, (state: PokemonSliceProps, action: { payload: BasicInfo[] }) => {
+      .addCase(getPokemonList.fulfilled, (state: PokemonSliceProps, action: { payload: Pokemon[] }) => {
         state.pokemons = action.payload;
         state.loading = false;
       })

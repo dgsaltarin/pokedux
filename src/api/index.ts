@@ -6,6 +6,9 @@ export const getPokemons = async () => {
   return response.data.results;
 };
 
-export const getPokemonsWithDeailts = async (pokemons: BasicInfo[]) => {
-  const response = Promise.all(pokemons.map(async (pokemon) => {}));
+export const getPokemonDetails = (pokemon: BasicInfo) => {
+  return axios
+    .get(pokemon.url)
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 };

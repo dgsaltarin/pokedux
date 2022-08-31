@@ -1,8 +1,7 @@
-import { BasicInfo, Pokemon } from '../Pokemon';
+import { Pokemon } from '../Pokemon';
 
 interface PokemonSliceProps {
-  pokemons: BasicInfo[];
-  pokemonsWithDeails: Pokemon[];
+  pokemons: Pokemon[];
   loading: boolean;
 }
 
