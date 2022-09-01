@@ -11,10 +11,3 @@ export const getPokemonDetails = async (pokemon: BasicInfo) => {
   response.data.is_favorite = false;
   return response.data;
 };
-
-export const getPokemonDetails = (pokemon: any) => {
-  return axios
-    .get(pokemon.url)
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-};
