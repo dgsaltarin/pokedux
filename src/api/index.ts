@@ -1,4 +1,4 @@
-import { BasicInfo } from '@/types/Pokemon';
+import { BasicInfo, Pokemon } from '@/types/Pokemon';
 import axios, { AxiosResponse } from 'axios';
 
 export const getPokemons = async () => {
@@ -6,9 +6,8 @@ export const getPokemons = async () => {
   return response.data.results;
 };
 
-export const getPokemonDetails = (pokemon: BasicInfo) => {
-  return axios
-    .get(pokemon.url)
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
+export const getPokemonDetails = async (pokemon: BasicInfo) => {
+  const response: AxiosResponse = await axios.get(pokemon.url);
+  response.data.is_favorite = false;
+  return response.data;
 };

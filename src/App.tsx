@@ -1,5 +1,5 @@
 import { Col } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Logo from './assets/logo.svg';
