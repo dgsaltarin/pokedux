@@ -1,19 +1,28 @@
+import { Pokemon } from '@/types/Pokemon';
 import { FC } from 'react';
 import PokemonCard from './PokemonCard';
 
-const PokemonList: FC<{ pokemons: any }> = ({ pokemons }) => {
-  console.log(pokemons);
+const PokemonListComponent: FC<{ pokemons: Pokemon[] }> = ({ pokemons }) => {
   return (
     <div className="PokemonList">
-      {pokemons.map((pokemon: any) => {
-        return <PokemonCard name={pokemon.name} key={pokemon.name} image={pokemon.sprites.front_default} types={pokemon.types} id={pokemon.id} />;
+      {pokemons.map((pokemon: Pokemon) => {
+        return (
+          <PokemonCard
+            key={pokemon.name}
+            name={pokemon.name}
+            image={pokemon.sprites.front_default}
+            types={pokemon.types}
+            id={pokemon.id}
+            isFavorite={pokemon.is_favorite}
+          />
+        );
       })}
     </div>
   );
 };
 
-PokemonList.defaultProps = {
+PokemonListComponent.defaultProps = {
   pokemons: Array(20).fill(''),
 };
 
-export default PokemonList;
+export default PokemonListComponent;
