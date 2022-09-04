@@ -1,7 +1,7 @@
 import { AppDispatch } from '@/redux/Store';
 import { Input } from 'antd';
 import { useDispatch } from 'react-redux';
-import { getPokemonList, searchPokemons } from '../redux/slices/PokemonSlice';
+import { searchPokemons } from '../redux/slices/PokemonSlice';
 
 const Searcher = () => {
   const dispath = useDispatch<AppDispatch>();
